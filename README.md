@@ -13,12 +13,12 @@
   <h2>🔍 Table of Contents</h2>
 </div>
 
-- [✨ Features](main#-key-features)
-- [👨‍💻 Tech Stack](main#tech-stack)
-- [🚀 Getting Started](main#getting-started)
-- [⚒️ Development Setup](main#development-setup)
-- [📝 File Structure](main#file-structure)
-- [🤝 Contributing](main#contributing)
+- [✨ Features](#-key-features)
+- [👨‍💻 Tech Stack](#tech-stack)
+- [🚀 Getting Started](#getting-started)
+- [⚒️ Development Setup](#development-setup)
+- [📝 File Structure](#file-structure)
+- [🤝 Contributing](#contributing)
 
 ---
 
