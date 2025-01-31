@@ -16,7 +16,7 @@
 - [✨ Features](#-key-features)
 - [👨‍💻 Tech Stack](#-tech-stack)
 - [🚀 Getting Started](#-getting-started)
-- [⚒️ Development Setup](#-development-setup)
+- [⚒️ Development Setup](#%EF%B8%8F-development-setup)
 - [📝 File Structure](#-file-structure)
 - [🤝 Contributing](#-contributing)
 
