@@ -1,6 +1,6 @@
 <div align="center">
    <a href="https://github.com/Sang-Buster/AeroLex">
-      <img src="/READ.assets/favicon.ico" width=30% alt="logo">
+      <img src="/src/assets/favicon.png" width=30% alt="logo">
    </a>   
    <h1>AeroLex - Making Airwaves Understandable</h1>
    <h6><small>An AI-powered ATC Communication Analysis Tool</small></h6>
@@ -107,15 +107,14 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 
 1. **Set up environment variables:**
    ```bash
-   # Copy the example environment file
-   cp .env_example .env
+   touch src/.streamlit/secrets.toml
    ```
-   Then edit `.env` and add your configurations:
+   Then edit `secrets.toml` and add your configurations:
    ```
-   MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
-   WHISPER_MODEL_PATH=your_whisper_model_path_here
-   SPACY_MODEL_PATH=your_spacy_model_path_here
-   OLLAMA_API_URL=http://localhost:11434
+   MAPBOX_ACCESS_TOKEN = "your_mapbox_token_here"
+   WHISPER_MODEL_PATH = "your_whisper_model_path_here"
+   SPACY_MODEL_PATH = "your_spacy_model_path_here"
+   OLLAMA_API_URL = "http://localhost:11434"
    ```
    - You can get a Mapbox access token by signing up at https://www.mapbox.com/
    - You can download the Whisper model from https://github.com/openai/whisper
@@ -132,9 +131,10 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 
 3. **Install pre-commit:**
    ```bash
-   uv pip install pre-commit
+   uv pip install ruff pre-commit
    ```
-   Pre-commit helps maintain code quality by running automated checks before commits are made.
+   `pre-commit` helps maintain code quality by running automated checks before commits are made.
+   `ruff` is a modern Python code formatter and linter.
 
 4. **Install git hooks:**
    ```bash
@@ -154,7 +154,7 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 
 6. **Run the application:**
    ```bash
-   streamlit src/app.py
+   streamlit run src/🏠_Home.py
    ```
 
 ---
@@ -171,9 +171,12 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
  ┃ ┣ 📂data
  ┃ ┣ 📂models
  ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📄1_🔊_Audio.py
+ ┃ ┃ ┣ 📄2_📝_Text.py
+ ┃ ┃ ┣ 📄3_📝_Transcription.py
+ ┃ ┃ ┗ 📄4_💬_Chat.py
  ┃ ┣ 📂utils
- ┃ ┗ 📄app.py
- ┣ 📄.env_example
+ ┃ ┗ 📄🏠_Home.py
  ┣ 📄.gitignore
  ┣ 📄.pre-commit-config.yaml
  ┣ 📄.pre-commit_msg_template.py
