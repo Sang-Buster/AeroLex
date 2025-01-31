@@ -13,12 +13,12 @@
   <h2>🔍 Table of Contents</h2>
 </div>
 
-- [✨ Features](#features)
-- [👨‍💻 Tech Stack](#tech-stack)
-- [🚀 Getting Started](#getting-started)
-- [⚒️ Development Setup](#development-setup)
-- [📝 File Structure](#file-structure)
-- [🤝 Contributing](#contributing)
+- [✨ Features](?tab=readme-ov-file#-key-features)
+- [👨‍💻 Tech Stack](?tab=readme-ov-file#tech-stack)
+- [🚀 Getting Started](?tab=readme-ov-file#getting-started)
+- [⚒️ Development Setup](?tab=readme-ov-file#development-setup)
+- [📝 File Structure](?tab=readme-ov-file#file-structure)
+- [🤝 Contributing](?tab=readme-ov-file#contributing)
 
 ---
 
