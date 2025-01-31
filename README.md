@@ -14,11 +14,11 @@
 </div>
 
 - [✨ Features](#-key-features)
-- [👨‍💻 Tech Stack](#tech-stack)
-- [🚀 Getting Started](#getting-started)
-- [⚒️ Development Setup](#development-setup)
-- [📝 File Structure](#file-structure)
-- [🤝 Contributing](#contributing)
+- [👨‍💻 Tech Stack](#-tech-stack)
+- [🚀 Getting Started](#-getting-started)
+- [⚒️ Development Setup](#-development-setup)
+- [📝 File Structure](#-file-structure)
+- [🤝 Contributing](#-contributing)
 
 ---
 
