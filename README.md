@@ -1,10 +1,11 @@
 <div align="center">
    <a href="https://github.com/Sang-Buster/AeroLex">
-      <img src="/src/assets/favicon.png" width=30% alt="logo">
+      <img src="/src/assets/favicon.png" width=20% alt="logo">
    </a>   
-   <h1>AeroLex - Making Airwaves Understandable</h1>
-   <h6><small>An AI-powered ATC Communication Analysis Tool</small></h6>
-   <p><b>#LLM &emsp; #Air Traffic Control Communication &emsp; #Automatic Speech Recognition <br/>#Name Entity Recognition</b></p>
+   <h1>AeroLex</h1>
+   <h6><small>Making Airwaves Understandable - An AI-powered ATC Communication Analysis Tool</small></h6>
+   <p><b>#LLM &emsp; #Air Traffic Control Communication &emsp; #Automatic Speech Recognition &emsp; #Aviation &emsp; #AI <br/>
+   #Name Entity Recognition &emsp; #Speech-to-Text &emsp; #Natural Language Processing &emsp; #Real-time Analysis</b></p>
 </div>
 
 ---
@@ -26,7 +27,7 @@
   <h2>✨ Key Features</h2>
 </div>
 
-AeroLex is an AI-powered web application that transcribes, visualizes, and analyzes air traffic communication. Using advanced speech recognition (Whisper), named entity recognition (SpaCy), and language models (Ollama), it transforms ATC conversations into structured, actionable insights. Some of the key features are:
+AeroLex is an AI-powered web application that transcribes, visualizes, and analyzes air traffic communication. It transforms ATC conversations into structured, actionable insights. Some of the key features are:
   - **Audio Processing**
     - Upload and record audio files
     - Visualize audio distribution (waveform, spectrogram, etc.)
