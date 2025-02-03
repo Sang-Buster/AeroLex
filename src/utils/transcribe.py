@@ -5,6 +5,7 @@ from datetime import datetime
 from time import sleep
 
 import numpy as np
+import streamlit as st
 import torch
 import whisper
 from pydub import AudioSegment
@@ -28,23 +29,24 @@ def send_stop_signal():
 class WhisperTranscriber:
     def __init__(
         self,
-        model_name="medium",
-        audio_path=None,
+        model_name: str,
+        audio_path: str,
         energy_threshold=300,
         record_timeout=3.0,
         phrase_timeout=15.0,
         mic_index=0,
     ):
-        self.model_name = model_name + ".en"
+        """Initialize the transcriber with the specified model and audio path"""
+        # Ensure model name is valid and doesn't have duplicate language suffix
+        if model_name.endswith(".en.en"):
+            model_name = model_name[:-3]  # Remove duplicate .en suffix
+
+        self.model_name = model_name
         self.audio_path = audio_path
         self.energy_threshold = energy_threshold
         self.record_timeout = record_timeout
         self.phrase_timeout = phrase_timeout
         self.mic_index = mic_index
-
-        # Initialize Whisper model
-        self.audio_model = whisper.load_model(self.model_name)
-        self.transcription = [""]
 
         # Set up output path
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -56,6 +58,18 @@ class WhisperTranscriber:
             self.text_dir, f"transcription_{timestamp}.txt"
         )
         self.summary_path = os.path.join(self.text_dir, f"summary_{timestamp}.json")
+
+        # Load the model
+        try:
+            self.audio_model = whisper.load_model(self.model_name)
+        except RuntimeError as e:
+            available_models = whisper.available_models()
+            st.error(
+                f"Error loading model. Available models: {', '.join(available_models)}"
+            )
+            raise e
+
+        self.transcription = [""]
 
     def process_audio_file(self):
         """Process a pre-recorded audio file"""

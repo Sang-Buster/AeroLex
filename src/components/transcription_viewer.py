@@ -5,7 +5,7 @@ def display_transcription(transcription: str):
     """Display the transcription in a scrollable container"""
     st.markdown(
         f"""
-        <div style="height: 400px; overflow-y: auto; padding: 10px;">
+        <div style="height: 500px; overflow-y: auto; padding: 10px;">
             {transcription.replace("\n", "<br>")}
         </div>
         """,

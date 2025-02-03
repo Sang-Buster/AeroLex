@@ -17,13 +17,17 @@ def get_whisper_models() -> Dict[str, str]:
     """Get available Whisper models and their sizes"""
     # Model sizes in millions of parameters (from official OpenAI documentation)
     model_sizes = {
+        "tiny.en": 39,
         "tiny": 39,
+        "base.en": 74,
         "base": 74,
+        "small.en": 244,
         "small": 244,
+        "medium.en": 769,
         "medium": 769,
-        "large": 1550,
+        "large-v1": 1550,
         "large-v2": 1550,
-        "large-v3": 1550,
+        "large": 1550,
     }
 
     # Get available models
@@ -66,7 +70,7 @@ def transcription_page():
         # Get available Whisper models
         whisper_models = get_whisper_models()
 
-        # Default to 'medium' if available, otherwise first model
+        # Default to 'tiny' if available, otherwise first model
         default_index = (
             list(whisper_models.keys()).index("tiny") if "tiny" in whisper_models else 0
         )
@@ -206,13 +210,13 @@ def transcription_page():
 
             # Create containers with consistent styling
             with trans_col1:
-                transcription_container = st.container(border=True, height=500)
+                transcription_container = st.container(border=True, height=700)
                 with transcription_container:
                     st.markdown("#### Live Transcription")
                     transcription_content = st.empty()
 
             with trans_col2:
-                summary_container = st.container(border=True, height=500)
+                summary_container = st.container(border=True, height=700)
                 with summary_container:
                     st.markdown("#### Live Summary")
                     summary_content = st.empty()
@@ -223,7 +227,7 @@ def transcription_page():
                 with transcription_content:
                     st.markdown(
                         f"""
-                        <div style="height: 400px; overflow-y: auto; padding: 10px;">
+                        <div style="height: 500px; overflow-y: auto; padding: 10px;">
                             {transcription.replace("\n", "<br>")}
                         </div>
                         """,
