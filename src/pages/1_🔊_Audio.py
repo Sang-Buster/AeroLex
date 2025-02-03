@@ -3,6 +3,8 @@ from datetime import datetime
 
 import streamlit as st
 
+from components.sidebar import sidebar
+
 
 def save_audio_file(audio_file):
     # Create a timestamp for unique filename
@@ -16,10 +18,13 @@ def save_audio_file(audio_file):
 
 
 def audio_page():
-    st.title("Audio Processing")
+    sidebar()
+
+    st.markdown(
+        "<h1 style='text-align: center;'>Audio Processing</h1>", unsafe_allow_html=True
+    )
 
     # File upload section
-    st.subheader("Upload Audio File")
     uploaded_file = st.file_uploader("Choose an audio file", type=["wav", "mp3", "ogg"])
 
     if uploaded_file is not None:
@@ -35,7 +40,6 @@ def audio_page():
         st.info("Waveform visualization will be implemented here")
 
     # Audio recording section
-    st.subheader("Record Audio")
     audio_recording = st.audio_input("Record a voice message")
 
     if audio_recording is not None:

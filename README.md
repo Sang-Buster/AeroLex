@@ -176,6 +176,7 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
  ┃ ┃ ┣ 📄2_📝_Text.py
  ┃ ┃ ┣ 📄3_📝_Transcription.py
  ┃ ┃ ┗ 📄4_💬_Chat.py
+ ┃ ┣ 📂services
  ┃ ┣ 📂utils
  ┃ ┗ 📄🏠_Home.py
  ┣ 📄.gitignore

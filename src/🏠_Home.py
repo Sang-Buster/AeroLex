@@ -4,6 +4,8 @@ from pathlib import Path
 
 import streamlit as st
 
+from components.sidebar import sidebar
+
 # Add the project root directory to the Python path
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
@@ -22,25 +24,13 @@ os.makedirs("src/data/text", exist_ok=True)
 
 
 def main():
-    # Sidebar
-    with st.sidebar:
-        # Logo placeholder
-        favicon_path = str(project_root / "assets" / "favicon.png")
-        st.image(favicon_path)
-
-        # Title and subtitle
-        st.title("AeroLex")
-        st.caption("Making Airwaves Understandable")
-
-        # Add some spacing
-        st.markdown("---")
-
-        # Copyright notice at the bottom of sidebar
-        st.markdown("<br>" * 5, unsafe_allow_html=True)  # Add space
-        st.caption("Copyright © Sang-Buster 2025-Present")
+    sidebar()
 
     # Main content area
-    st.title("Welcome to AeroLex")
+    st.markdown(
+        "<h1 style='text-align: center;'>Welcome to AeroLex</h1>",
+        unsafe_allow_html=True,
+    )
     st.markdown("""
     AeroLex is an AI-powered web application that transcribes, visualizes, 
     and analyzes air traffic communication.

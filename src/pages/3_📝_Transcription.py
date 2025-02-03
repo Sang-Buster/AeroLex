@@ -1,8 +1,14 @@
 import streamlit as st
 
+from components.sidebar import sidebar
+
 
 def transcription_page():
-    st.title("Transcription")
+    sidebar()
+
+    st.markdown(
+        "<h1 style='text-align: center;'>Transcription</h1>", unsafe_allow_html=True
+    )
     st.info("Transcription functionality will be implemented here")
 
 

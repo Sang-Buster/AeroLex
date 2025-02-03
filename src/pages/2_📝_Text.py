@@ -3,6 +3,8 @@ from datetime import datetime
 
 import streamlit as st
 
+from components.sidebar import sidebar
+
 
 def save_text_file(text_content):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -15,10 +17,13 @@ def save_text_file(text_content):
 
 
 def text_page():
-    st.title("Text Processing")
+    sidebar()
+
+    st.markdown(
+        "<h1 style='text-align: center;'>Text Processing</h1>", unsafe_allow_html=True
+    )
 
     # File upload section
-    st.subheader("Upload Text File")
     uploaded_file = st.file_uploader("Choose a text file", type=["txt"])
 
     if uploaded_file is not None:
@@ -34,7 +39,6 @@ def text_page():
         st.info("Text analysis visualization will be implemented here")
 
     # Manual text input section
-    st.subheader("Text Input")
     text_input = st.text_area("Enter your text here", height=200)
 
     if st.button("Process Text") and text_input:
