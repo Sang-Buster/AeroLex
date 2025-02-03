@@ -4,8 +4,8 @@ from pathlib import Path
 import streamlit as st
 
 # Add the project root directory to the Python path
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
+src_root = Path(__file__).parent.parent
+sys.path.insert(0, str(src_root))
 
 
 def sidebar():
@@ -14,7 +14,7 @@ def sidebar():
         st.markdown("<br>", unsafe_allow_html=True)
 
         # Logo placeholder
-        favicon_path = str(project_root / "assets" / "favicon.png")
+        favicon_path = str(src_root / "assets" / "favicon.png")
         st.image(favicon_path, use_container_width=True)
 
         # Title and subtitle

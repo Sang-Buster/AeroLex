@@ -150,6 +150,9 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 5. **Code Linting:**
    ```bash
    ruff check
+   ruff check --select I
+   ruff check --fix
+   ruff check --select I --fix
    ruff format
    ```
 

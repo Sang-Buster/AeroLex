@@ -3,6 +3,7 @@ runOnSave = true
 baseUrlPath = ""
 port = 8501
 maxUploadSize = 1000000
+maxMessageSize = 1000000
 
 [runner]
 fastReruns = true
