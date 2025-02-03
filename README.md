@@ -108,7 +108,7 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 
 1. **Set up environment variables:**
    ```bash
-   touch src/.streamlit/secrets.toml
+   touch .streamlit/secrets.toml
    ```
    Then edit `secrets.toml` and add your configurations:
    ```
@@ -171,16 +171,31 @@ AeroLex is an AI-powered web application that transcribes, visualizes, and analy
 📦AeroLex
  ┣ 📂READ.assets
  ┣ 📂src
+ ┃ ┣ 📂assets
+ ┃ ┃ ┗ 📄favicon.png
  ┃ ┣ 📂components
+ ┃ ┃ ┣ 📄audio_visualizer.py
+ ┃ ┃ ┣ 📄sidebar.py
+ ┃ ┃ ┣ 📄text_visualizer.py
+ ┃ ┃ ┗ 📄transcription_viewer.py
  ┃ ┣ 📂data
+ ┃ ┃ ┣ 📂audio
+ ┃ ┃ ┗ 📂text
  ┃ ┣ 📂models
+ ┃ ┃ ┣ 📄ollama_models.py
+ ┃ ┃ ┣ 📄spacy_models.py
+ ┃ ┃ ┗ 📄whisper_models.py
  ┃ ┣ 📂pages
  ┃ ┃ ┣ 📄1_🔊_Audio.py
  ┃ ┃ ┣ 📄2_📝_Text.py
- ┃ ┃ ┣ 📄3_📝_Transcription.py
+ ┃ ┃ ┣ 📄3_💽_Transcribe.py
  ┃ ┃ ┗ 📄4_💬_Chat.py
- ┃ ┣ 📂services
  ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📄audio_processing.py
+ ┃ ┃ ┣ 📄model_integration.py
+ ┃ ┃ ┣ 📄summarize.py
+ ┃ ┃ ┣ 📄text_processing.py
+ ┃ ┃ ┗ 📄transcribe.py
  ┃ ┗ 📄🏠_Home.py
  ┣ 📄.gitignore
  ┣ 📄.pre-commit-config.yaml

@@ -68,9 +68,7 @@ def transcription_page():
 
         # Default to 'medium' if available, otherwise first model
         default_index = (
-            list(whisper_models.keys()).index("medium")
-            if "medium" in whisper_models
-            else 0
+            list(whisper_models.keys()).index("tiny") if "tiny" in whisper_models else 0
         )
 
         whisper_model = st.selectbox(
