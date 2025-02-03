@@ -1,3 +1,5 @@
+"""Text processing utilities"""
+
 from typing import Optional
 
 import spacy

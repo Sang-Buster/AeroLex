@@ -1,3 +1,8 @@
+"""Audio processing utilities"""
+
+import os
+from datetime import datetime
+
 import librosa
 import librosa.display
 import numpy as np
@@ -33,7 +38,29 @@ def moving_average(ts, window):
     ]
 
 
+def save_audio_file(audio_file):
+    """Save uploaded audio file"""
+    # Create a timestamp for unique filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{timestamp}.wav"
+    save_path = os.path.join("src/data/audio", filename)
+
+    # Ensure directory exists
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+    # Handle both uploaded files and recorded audio
+    if hasattr(audio_file, "getvalue"):  # File uploader
+        with open(save_path, "wb") as f:
+            f.write(audio_file.getbuffer())
+    else:  # Audio recorder
+        with open(save_path, "wb") as f:
+            f.write(audio_file.tobytes())
+
+    return save_path
+
+
 def load_and_process_audio(file_path):
     """Load and process audio file"""
+    # Load audio file
     wav, sr = librosa.load(file_path, sr=None)
     return wav, sr
