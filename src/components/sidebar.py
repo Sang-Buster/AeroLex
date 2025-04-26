@@ -31,7 +31,7 @@ def sidebar():
         )
 
         # Footer
-        st.markdown("<br>" * 6, unsafe_allow_html=True)
+        st.markdown("<br>" * 7, unsafe_allow_html=True)
         st.markdown("---")
         st.markdown(
             "<h6 style='text-align: center;'>Copyright © Sang-Buster 2025-Present</h6>",

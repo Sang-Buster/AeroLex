@@ -90,25 +90,82 @@ def transcription_page():
     with model_col2:
         # Ollama model selection with dynamic model list
         try:
-            client = ollama.Client(host=st.secrets["OLLAMA_API_URL"])
-            response = client.list()
+            # Use get method with default fallback for secrets
+            ollama_api_url = st.secrets.get("OLLAMA_API_URL", "http://localhost:11434")
 
-            # Extract model names and details
-            available_models = []
-            model_details = {}
-            if hasattr(response, "models"):
-                for model in response.models:
-                    available_models.append(model.model)
-                    size_gb = model.size / (1024 * 1024 * 1024)  # Convert to GB
-                    model_details[model.model] = f"{model.model} ({size_gb:.1f}GB)"
-            else:
-                available_models = ["llama3.2:3b-instruct-q4_K_M"]
-                model_details = {"llama3.2:3b-instruct-q4_K_M": "Llama 3.2B"}
+            # Create client without the HEAD request check that was causing issues
+            client = ollama.Client(host=ollama_api_url)
+
+            try:
+                response = client.list()
+
+                # Extract model names and details
+                available_models = []
+                model_details = {}
+
+                if hasattr(response, "models") and response.models:
+                    for model in response.models:
+                        available_models.append(model.model)
+                        size_gb = model.size / (1024 * 1024 * 1024)  # Convert to GB
+                        model_details[model.model] = f"{model.model} ({size_gb:.1f}GB)"
+
+                if not available_models:
+                    st.warning(
+                        "No Ollama models found. Please download at least one model for summarization."
+                    )
+                    available_models = ["None"]
+                    model_details = {"None": "No models available"}
+
+            except Exception as api_error:
+                st.error(f"Error fetching models from Ollama: {str(api_error)}")
+                st.info("API connection succeeded but model list retrieval failed.")
+                available_models = ["None"]
+                model_details = {"None": "API Error"}
+
+        except KeyError:
+            # Handle case when OLLAMA_API_URL is not in secrets
+            st.info(
+                "OLLAMA_API_URL not found in secrets, using default localhost:11434"
+            )
+            try:
+                client = ollama.Client(host="http://localhost:11434")
+                response = client.list()
+                # Rest of the code to handle response
+                # Extract model names and details
+                available_models = []
+                model_details = {}
+
+                if hasattr(response, "models") and response.models:
+                    for model in response.models:
+                        available_models.append(model.model)
+                        size_gb = model.size / (1024 * 1024 * 1024)  # Convert to GB
+                        model_details[model.model] = f"{model.model} ({size_gb:.1f}GB)"
+
+                if not available_models:
+                    st.warning(
+                        "No Ollama models found. Please download at least one model for summarization."
+                    )
+                    available_models = ["None"]
+                    model_details = {"None": "No models available"}
+            except Exception as inner_e:
+                st.error(f"Failed to connect to local Ollama API: {str(inner_e)}")
+                st.info(
+                    "Make sure Ollama is running locally or port forwarding is correctly set up."
+                )
+                available_models = ["None"]
+                model_details = {"None": "Connection Error"}
 
         except Exception as e:
-            st.error(f"Failed to get available models: {str(e)}")
-            available_models = ["llama3.2:3b-instruct-q4_K_M"]
-            model_details = {"llama3.2:3b-instruct-q4_K_M": "Llama 3.2B"}
+            error_msg = str(e)
+            st.error(f"Failed to connect to Ollama API: {error_msg}")
+
+            # Provide a single, clear instruction instead of multiple messages
+            st.info(
+                "Check that Ollama is running and accessible. For remote connections, verify your port forwarding setup (e.g., ssh -L 11434:remote:11434)."
+            )
+
+            available_models = ["None"]
+            model_details = {"None": "Connection Error"}
 
         ollama_model = st.selectbox(
             "Summarization Model",
