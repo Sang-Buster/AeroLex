@@ -47,6 +47,14 @@ def get_whisper_models() -> Dict[str, str]:
     return whisper_models
 
 
+def update_whisper_model():
+    st.session_state.whisper_model = st.session_state.whisper_model_selectbox
+
+
+def update_ollama_model():
+    st.session_state.ollama_model = st.session_state.ollama_model_selectbox
+
+
 def transcription_page():
     sidebar()
 
@@ -62,6 +70,11 @@ def transcription_page():
         st.session_state.transcription_audio = None
     if "transcription_path" not in st.session_state:
         st.session_state.transcription_path = None
+    # Initialize session state for model selections with defaults
+    if "whisper_model" not in st.session_state:
+        st.session_state.whisper_model = "tiny"
+    if "ollama_model" not in st.session_state:
+        st.session_state.ollama_model = None
 
     # Model Selection in two columns
     model_col1, model_col2 = st.columns(2)
@@ -70,22 +83,29 @@ def transcription_page():
         # Get available Whisper models
         whisper_models = get_whisper_models()
 
-        # Default to 'tiny' if available, otherwise first model
-        default_index = (
-            list(whisper_models.keys()).index("tiny") if "tiny" in whisper_models else 0
-        )
+        # Get current index
+        model_options = list(whisper_models.keys())
+        current_index = 0
+        if st.session_state.whisper_model in model_options:
+            current_index = model_options.index(st.session_state.whisper_model)
 
-        whisper_model = st.selectbox(
+        # Use the callback pattern with a unique key
+        st.selectbox(
             "Whisper Model",
-            options=list(whisper_models.keys()),
+            options=model_options,
             format_func=lambda x: whisper_models[x],
-            index=default_index,
+            index=current_index,
+            key="whisper_model_selectbox",
+            on_change=update_whisper_model,
             help=(
                 "Select Whisper model for transcription. "
                 "Larger models are more accurate but slower. "
                 f"Using CUDA: {torch.cuda.is_available()}"
             ),
         )
+
+        # Display selected model for debugging
+        st.caption(f"Selected model: {st.session_state.whisper_model}")
 
     with model_col2:
         # Ollama model selection with dynamic model list
@@ -167,13 +187,24 @@ def transcription_page():
             available_models = ["None"]
             model_details = {"None": "Connection Error"}
 
-        ollama_model = st.selectbox(
+        # Get current index for Ollama model
+        ollama_index = 0
+        if st.session_state.ollama_model in available_models:
+            ollama_index = available_models.index(st.session_state.ollama_model)
+
+        # Use callback pattern with unique key for Ollama model
+        st.selectbox(
             "Summarization Model",
             options=available_models,
             format_func=lambda x: model_details.get(x, x),
-            index=0,
+            index=ollama_index,
+            key="ollama_model_selectbox",
+            on_change=update_ollama_model,
             help="Select the Ollama model for summarization",
         )
+
+        # Display selected model for debugging
+        st.caption(f"Selected model: {st.session_state.ollama_model}")
 
     # Check for audio from Audio page
     has_uploaded_audio = (
@@ -235,10 +266,11 @@ def transcription_page():
     if st.session_state.transcription_path:
         # Initialize transcriber and summarizer first
         transcriber = WhisperTranscriber(
-            model_name=whisper_model, audio_path=st.session_state.transcription_path
+            model_name=st.session_state.whisper_model,
+            audio_path=st.session_state.transcription_path,
         )
 
-        summarizer = OllamaSummarizer(model_name=ollama_model)
+        summarizer = OllamaSummarizer(model_name=st.session_state.ollama_model)
 
         # Center the control buttons using columns
         left_col, center_col, right_col = st.columns([1, 2, 1])

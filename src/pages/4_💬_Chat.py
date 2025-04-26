@@ -28,6 +28,11 @@ def initialize_chat_config():
         }
 
 
+def update_chat_model():
+    """Callback function to update the model in session state"""
+    st.session_state.chat_config["model"] = st.session_state.model_selectbox
+
+
 def get_available_models():
     """Get available Ollama models with their sizes"""
     try:
@@ -116,15 +121,28 @@ def chat_interface():
 
     # Model selection and parameters in main panel
     available_models, model_details = get_available_models()
-    selected_model = st.selectbox(
+
+    # Find the correct index for the current model
+    default_index = 0
+    if st.session_state.chat_config["model"] in available_models:
+        default_index = available_models.index(st.session_state.chat_config["model"])
+    elif available_models and available_models[0] != "None":
+        # If model not found and we have valid models, update session state
+        st.session_state.chat_config["model"] = available_models[0]
+
+    # Use on_change callback to update the model
+    st.selectbox(
         "Select Model",
         options=available_models,
         format_func=lambda x: model_details.get(x, x),
-        index=available_models.index(st.session_state.chat_config["model"])
-        if st.session_state.chat_config["model"] in available_models
-        else 0,
+        index=default_index,
+        key="model_selectbox",
+        on_change=update_chat_model,
         help="Select the Ollama model for chat",
     )
+
+    # Display current model for debugging
+    st.caption(f"Current model: {st.session_state.chat_config['model']}")
 
     with st.expander("Model Parameters", expanded=False):
         st.subheader("Basic Parameters")
@@ -238,7 +256,7 @@ def chat_interface():
     # Update config with all parameters
     st.session_state.chat_config.update(
         {
-            "model": selected_model,
+            "model": st.session_state.chat_config["model"],
             "temperature": temperature,
             "top_p": top_p,
             "top_k": top_k,
